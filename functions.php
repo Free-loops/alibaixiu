@@ -16,6 +16,7 @@ session_start();
  * @return [type] [description]
  */
 function xiu_get_current_user () {
+  
   if (empty($_SESSION['email'])) {
     // 没有当前登录用户信息，意味着没有登录
     header('Location: /admin/login.php');

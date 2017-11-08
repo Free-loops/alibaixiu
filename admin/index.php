@@ -1,6 +1,9 @@
 <?php
 include_once '../config.php';
-session_start();
+include_once '../functions.php';
+include_once '../mysql.php';
+
+
 
 if (empty($_SESSION['email']) || empty($_SESSION['password'])) {
   header('Location: /admin/login.php');
@@ -28,6 +31,20 @@ if ($user['email'] != $email || $user['password'] != $password) {
   header('Location: ../admin/login.php');
 }
 
+
+// $posts_count = xiu_fetch_one('select count(1) as num from posts;')['num'];
+
+// $categories_count = xiu_fetch_one('select count(1) as num from categories;')['num'];
+
+// $comments_count = xiu_fetch_one('select count(1) as num from comments;')['num'];
+
+//多表统计
+$count = mysql("select count(posts.id) as 'posts_c',
+(select count(1) from posts where status='drafted') as 'drafted_c',
+(select count(1)  from categories) as 'categories_c',
+(select count(1) from comments) as 'comments_c',
+(select count(1) from comments where status='held') as 'held_c'
+from posts;");
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +63,7 @@ if ($user['email'] != $email || $user['password'] != $password) {
 
   <div class="main">
 
-    <?php include 'inc/navbar.php' ?>
+    <?php include 'inc/navbar.php'; ?>
 
     <div class="container-fluid">
       <div class="jumbotron text-center">
@@ -61,9 +78,9 @@ if ($user['email'] != $email || $user['password'] != $password) {
               <h3 class="panel-title">站点内容统计：</h3>
             </div>
             <ul class="list-group">
-              <li class="list-group-item"><strong>10</strong>篇文章（<strong>2</strong>篇草稿）</li>
-              <li class="list-group-item"><strong>6</strong>个分类</li>
-              <li class="list-group-item"><strong>5</strong>条评论（<strong>1</strong>条待审核）</li>
+              <li class="list-group-item"><strong><?php echo $count['posts_c']; ?></strong>篇文章（<strong><?php echo $count['drafted_c']; ?></strong>篇草稿）</li>
+              <li class="list-group-item"><strong><?php echo $count['categories_c']; ?></strong>个分类</li>
+              <li class="list-group-item"><strong><?php echo $count['comments_c']; ?></strong>条评论（<strong><?php echo $count['held_c']; ?></strong>条待审核）</li>
             </ul>
           </div>
         </div>

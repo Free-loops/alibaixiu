@@ -5,8 +5,7 @@ $email = $_GET['email'];
 $mysql = mysql("select * from users where email='{$email}';");
 //select avatar from users where email = '{$email}' limit 1;
 if(!$mysql){
-    die("select * from users where email={$email};");
+    die("/static/assets/img/default.png");
+    //return;
 }
-
-
 echo $mysql['avatar'];

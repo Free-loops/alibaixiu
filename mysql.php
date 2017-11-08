@@ -81,7 +81,7 @@ function mysql($sql='null',$bool=true) {
 
 
 // *********查询函数*********
-// select count() from users; 表中某一个值的个数
+// select count() from users; 表中某一个值/某一项的个数
 // select count() as count from users; 
 // select max(id) from users;   id中得最大值
 // select * from users limit 2; 取前两行数据
@@ -89,4 +89,38 @@ function mysql($sql='null',$bool=true) {
 
 //commit 提交 
 
-//
+//多表连查
+// $sql="select
+
+// posts.title,
+// categories.name as category_name,
+// users.nickname as user_name,
+// from posts
+// inner join categories on posts.category_id = categories.id
+// inner join users on posts.user_id = users.id
+// where {$where}   and posts.status = '状态1' or users.nickname like '昵称1'"
+// order by posts.created desc
+// limit {$offset}, {$size};"
+//order by 按照...排序
+//desc 升序
+
+
+//多表统计
+// "select count(posts.id) as 'posts_c',
+// (select count(categories.id)  from categories) as 'categories_c',
+// (select count(comments.id) from comments) as 'comment_c'
+// from posts;"
+
+// select count(posts.id) as '文章数量',
+// (select count(posts.id) from posts where status='drafted') as '文章中草稿的数量',
+// (select count(categories.id)  from categories) as '分类数量',
+// (select count(comments.id) from comments) as '评论数量',
+// (select count(comments.id) from comments where status='held') as '评论中待审核的数量'
+// from posts;
+
+//模糊查询条件
+//where or users.nickname like '%你好%' or users.nickname like '%你好%'
+
+//where 1=1; 无效条件
+
+//sql注入where 1 or 1=1;
