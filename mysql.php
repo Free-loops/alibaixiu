@@ -115,8 +115,12 @@ function mysql($sql='null',$bool=true) {
 // (select count(posts.id) from posts where status='drafted') as '文章中草稿的数量',
 // (select count(categories.id)  from categories) as '分类数量',
 // (select count(comments.id) from comments) as '评论数量',
+<<<<<<< HEAD
 // (select count(comments.id) from comments where status='held') as '评论中待审核的数量'　
 
+=======
+// (select count(comments.id) from comments where status='held') as '评论中待审核的数量'
+>>>>>>> 13d18ea6695489a31c4c5d824af3dc256c47ed9f
 // from posts;
 
 //模糊查询条件

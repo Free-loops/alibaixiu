@@ -39,7 +39,11 @@ if ($user['email'] != $email || $user['password'] != $password) {
 // $comments_count = xiu_fetch_one('select count(1) as num from comments;')['num'];
 
 //多表统计
+<<<<<<< HEAD
 $count = mysql("select count(1) as 'posts_c',
+=======
+$count = mysql("select count(posts.id) as 'posts_c',
+>>>>>>> 13d18ea6695489a31c4c5d824af3dc256c47ed9f
 (select count(1) from posts where status='drafted') as 'drafted_c',
 (select count(1)  from categories) as 'categories_c',
 (select count(1) from comments) as 'comments_c',
